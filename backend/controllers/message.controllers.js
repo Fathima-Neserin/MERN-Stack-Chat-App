@@ -37,22 +37,25 @@ exports.sendMessage = async(req, res) => {
     
 }
 
-exports.getMessages = async(req, res) => {
+exports.getMessages = async (req, res) => {
     try {
-        const { id: userToChatId } = req.params;
-        const senderId = req.user._id;
-
-        const conversation = await Conversation.findOne({
-            participants: { $all: [senderId, userToChatId]}
-        }).populate("messages");
-
-        if(!conversation) return res.status(200).json([]);
-
-        const messages = conversation.messages;
-
-        res.status(200).json(messages)
+      const { id: userToChatId } = req.params;
+      const senderId = req.user._id;
+  
+      const conversation = await Conversation.findOne({
+        participants: { $all: [senderId, userToChatId] }
+      }).populate("messages");
+  
+      
+      if (!conversation) {
+        return res.status(200).json({ messages: [], conversationExists: false });
+      }
+  
+      const messages = conversation.messages;
+      res.status(200).json({ messages, conversationExists: true });
     } catch (error) {
-        console.error("Error in message fetching:", error.message)
-        res.status(500).json({error:"Internal server error"});
+      console.error("Error in message fetching:", error.message);
+      res.status(500).json({ error: "Internal server error" });
     }
-}
+  };
+  

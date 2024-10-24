@@ -10,6 +10,8 @@ const generateTokenAndSetCookie = (userId , res) => {
         secure:true,
         sameSite: "strict",  
     })
+
+    return token;
 }
 
 module.exports = generateTokenAndSetCookie;

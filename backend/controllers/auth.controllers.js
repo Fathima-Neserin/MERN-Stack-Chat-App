@@ -57,14 +57,15 @@ exports.login = async(req,res) => {
         if(!user || !isPasswordCorrect){
             return res.status(400).json({error:"Invalid Username or Password "})
         }
-        generateTokenAndSetCookie(user._id,res);
+        const accessToken = generateTokenAndSetCookie(user._id,res);
 
         res.status(201).json({
             _id: user._id,
             fullName: user.fullName,
             userName: user.userName,
             profilePic: user.profilePic,
-            message:`${userName}, logged in successfully`
+            message:`${userName}, logged in successfully`,
+            token: accessToken || "Token generation failed"
     })
 
     } catch (error) {

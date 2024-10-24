@@ -1,23 +1,19 @@
-import React from 'react'
+import React from 'react';
 
-const GenderCheckBox = () => {
+const GenderCheckBox = ({ gender, handleCheckBoxChange, isChecked }) => {
   return (
-    <div className='flex'>
-        <div className='form-control'>
-            <label className='ml-2 label gap-2 cursor-pointer'>
-                <span className='label-text'>Male</span>
-                <input type='checkbox' className='checkbox border-slate-900'/>
-            </label>
-        </div>
-        <div className='form-control'>
-        <label className='ml-2 label gap-2 cursor-pointer'>
-                <span className='label-text'>Female</span>
-                <input type='checkbox' className='checkbox border-slate-900'/>
-            </label>
-
-        </div>
+    <div className="form-control">
+      <label className="ml-2 label gap-2 cursor-pointer">
+        <span className="label-text">{gender}</span>
+        <input
+          type="checkbox"
+          className="checkbox border-slate-900"
+          checked={isChecked}
+          onChange={() => handleCheckBoxChange(gender)}  
+        />
+      </label>
     </div>
-  )
-}
+  );
+};
 
-export default GenderCheckBox
+export default GenderCheckBox;
